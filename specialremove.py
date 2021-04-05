@@ -2,15 +2,18 @@
 import csv
 import string
 import os
+_filelims = [];
 def main():
-    filename = "hi.csv"
-    output_file = "out.csv"
-    reader(filename,output_file)
-
+    thisdir = os.getcwd()
+    for r, d, f in os.walk(thisdir):
+        for file in f:
+            if file.endswith(".csv"):
+                _filelims.append(os.path.join(r,file))
+    for lims in _filelims:
+        reader(lims,os.path.basename(lims))
 def reader(filename,output_file):
     with open (filename,'r',encoding="utf-8") as csvfile:
-        writers(csvfile,output_file)
-
+        writers(csvfile,"out"+output_file)
 def writers(csvfile,output_file):
     # add specail charactor
     remove_bar =  ["#","$"] 
